@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Curso;
-use App\Models\ReferenciaPublica;
+use App\Support\Comunidad;
 use Illuminate\View\View;
 
 class InicioController extends Controller
@@ -21,11 +21,7 @@ class InicioController extends Controller
                 ->where('destacado', true)
                 ->orderBy('orden')
                 ->get(),
-            'referencias' => ReferenciaPublica::query()
-                ->where('publicado', true)
-                ->orderBy('orden')
-                ->get()
-                ->groupBy('tipo'),
+            ...Comunidad::datos(),
         ]);
     }
 }

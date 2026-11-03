@@ -50,10 +50,11 @@ class ReferenciaController extends Controller
     private function validar(Request $request): array
     {
         return $request->validate([
-            'tipo' => ['required', 'in:testimonio,aliado,alianza'],
+            'tipo' => ['required', 'in:testimonio,aliado,alianza,cliente'],
             'nombre' => ['required', 'string', 'max:160'],
             'detalle' => ['nullable', 'string', 'max:180'],
             'texto' => ['nullable', 'string', 'max:2000'],
+            'logo' => ['nullable', 'string', 'max:255'],
             'orden' => ['nullable', 'integer', 'min:0'],
         ]);
     }

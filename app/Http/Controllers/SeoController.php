@@ -29,6 +29,7 @@ class SeoController extends Controller
         $base = rtrim((string) config('app.url'), '/');
         $urls = [
             $base.'/',
+            $base.'/nosotros',
             $base.'/cursos',
             $base.'/verificar-certificado',
             $base.'/contacto',

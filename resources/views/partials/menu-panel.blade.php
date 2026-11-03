@@ -7,6 +7,7 @@
         <a class="block text-white" href="{{ route('admin.usuarios') }}">Usuarios</a>
         <a class="block text-white" href="{{ route('admin.reclamaciones') }}">Reclamaciones</a>
         <a class="block text-white" href="{{ route('admin.referencias') }}">Clientes y aliados</a>
+        <a class="block text-white" href="{{ route('admin.comunidad') }}">Comunidad</a>
         <a class="block text-white" href="{{ route('admin.apariencia') }}">Marca</a>
     @elseif (auth()->user()->esDocente())
         <a class="block text-white" href="{{ route('docente.inicio') }}">Mis cursos</a>

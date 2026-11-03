@@ -85,8 +85,8 @@
             <div>
                 <h2 class="text-base text-acento">Empresa</h2>
                 <ul class="mt-3 space-y-2 text-sm">
-                    <li><a class="text-white" href="{{ route('paginas.ver', 'nosotros') }}">Nosotros</a></li>
-                    <li><a class="text-white" href="{{ route('paginas.ver', 'equipo') }}">Equipo</a></li>
+                    <li><a class="text-white" href="{{ route('nosotros') }}">Nosotros</a></li>
+                    <li><a class="text-white" href="{{ route('nosotros') }}#equipo">Equipo</a></li>
                     <li><a class="text-white" href="{{ route('paginas.ver', 'modalidades-de-entrenamiento') }}">Modalidades</a></li>
                     <li><a class="text-white" href="{{ route('contacto') }}">Contacto</a></li>
                     <li><a class="text-white" href="mailto:{{ $marca->correo }}">{{ $marca->correo }}</a></li>

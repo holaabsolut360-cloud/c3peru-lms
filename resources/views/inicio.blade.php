@@ -99,29 +99,7 @@
         </div>
     </section>
 
-    <section id="clientes" class="bg-fondo py-14 text-white">
-        <div class="mx-auto max-w-6xl px-4">
-            <h2 class="text-3xl">Nuestros clientes, aliados y alianzas</h2>
-            <p class="mt-2 max-w-3xl text-white/75">Los nombres, logos y citas siguientes son ejemplos. Cada tarjeta marcada POR CONFIRMAR espera el texto y la autorización de la empresa.</p>
-            @foreach (['testimonio' => 'Testimoniales', 'aliado' => 'Aliados', 'alianza' => 'Alianzas'] as $tipo => $titulo)
-                <h3 class="mt-8 text-xl text-acento">{{ $titulo }}</h3>
-                <div class="mt-4 grid gap-4 md:grid-cols-2">
-                    @forelse (($referencias[$tipo] ?? collect()) as $referencia)
-                        <article class="rounded-2xl border border-white/10 bg-fondo-alt p-5">
-                            @if ($referencia->por_confirmar)
-                                <p class="text-xs font-semibold uppercase tracking-wide text-acento">POR CONFIRMAR</p>
-                            @endif
-                            <h4 class="mt-1 text-lg">{{ $referencia->nombre }}</h4>
-                            @if ($referencia->detalle)<p class="text-sm text-white/70">{{ $referencia->detalle }}</p>@endif
-                            @if ($referencia->texto)<p class="mt-3 text-sm text-white/85">{{ $referencia->texto }}</p>@endif
-                        </article>
-                    @empty
-                        <p class="text-sm text-white/70">POR CONFIRMAR. Aún no hay registros de este grupo.</p>
-                    @endforelse
-                </div>
-            @endforeach
-        </div>
-    </section>
+    @include('partials.comunidad', ['conCierre' => false])
 
     <section id="preguntas" class="mx-auto max-w-6xl px-4 py-14">
         <h2 class="text-3xl text-marca">Preguntas frecuentes</h2>

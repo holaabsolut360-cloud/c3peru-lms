@@ -11,8 +11,10 @@
             <option value="testimonio">Testimonial</option>
             <option value="aliado">Aliado</option>
             <option value="alianza">Alianza</option>
+            <option value="cliente">Cliente</option>
         </select>
         <input name="nombre" required placeholder="Nombre" class="rounded-xl border px-3 py-2">
+        <input name="logo" placeholder="Ruta del logo, si ya está autorizado" class="rounded-xl border px-3 py-2">
         <input name="detalle" placeholder="Cargo, convenio o alcance" class="rounded-xl border px-3 py-2">
         <textarea name="texto" rows="3" placeholder="Texto" class="rounded-xl border px-3 py-2"></textarea>
         <input name="orden" value="1" class="rounded-xl border px-3 py-2">
@@ -26,11 +28,12 @@
                 @csrf
                 @method('PUT')
                 <select name="tipo" class="rounded-xl border px-3 py-2">
-                    @foreach (['testimonio' => 'Testimonial', 'aliado' => 'Aliado', 'alianza' => 'Alianza'] as $valor => $etiqueta)
+                    @foreach (['testimonio' => 'Testimonial', 'aliado' => 'Aliado', 'alianza' => 'Alianza', 'cliente' => 'Cliente'] as $valor => $etiqueta)
                         <option value="{{ $valor }}" @selected($referencia->tipo === $valor)>{{ $etiqueta }}</option>
                     @endforeach
                 </select>
                 <input name="nombre" value="{{ $referencia->nombre }}" class="rounded-xl border px-3 py-2">
+                <input name="logo" value="{{ $referencia->logo }}" placeholder="Ruta del logo" class="rounded-xl border px-3 py-2">
                 <input name="detalle" value="{{ $referencia->detalle }}" class="rounded-xl border px-3 py-2">
                 <textarea name="texto" rows="3" class="rounded-xl border px-3 py-2">{{ $referencia->texto }}</textarea>
                 <input name="orden" value="{{ $referencia->orden }}" class="rounded-xl border px-3 py-2">

@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             CursosSeeder::class,
             PaginasSeeder::class,
             ReferenciasSeeder::class,
+            NosotrosSeeder::class,
             AdminSeeder::class,
         ]);
     }

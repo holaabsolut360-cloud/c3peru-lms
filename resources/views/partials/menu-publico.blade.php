@@ -11,18 +11,18 @@
         <details>
             <summary class="{{ $enlace }} cursor-pointer list-none [&::-webkit-details-marker]:hidden">Nosotros</summary>
             <div class="ml-3 border-l border-white/15 pl-3">
-                <a class="{{ $enlace }}" href="{{ route('paginas.ver', 'nosotros') }}">Nuestro Compromiso</a>
-                <a class="{{ $enlace }}" href="{{ route('paginas.ver', 'equipo') }}">Equipo</a>
-                <a class="{{ $enlace }}" href="{{ route('paginas.ver', 'nosotros') }}#vision">Visión + Misión</a>
+                <a class="{{ $enlace }}" href="{{ route('nosotros') }}#compromiso">Nuestro Compromiso</a>
+                <a class="{{ $enlace }}" href="{{ route('nosotros') }}#equipo">Equipo</a>
+                <a class="{{ $enlace }}" href="{{ route('nosotros') }}#vision">Visión + Misión</a>
             </div>
         </details>
     @else
         <div class="group relative">
-            <a class="{{ $enlace }}" href="{{ route('paginas.ver', 'nosotros') }}">Nosotros</a>
+            <a class="{{ $enlace }}" href="{{ route('nosotros') }}">Nosotros</a>
             <div class="menu-desplegable absolute left-0 top-full z-40 w-64 rounded-xl bg-fondo p-2 pt-2 shadow-xl">
-                <a class="block rounded-lg px-3 py-2 text-white hover:bg-white/10" href="{{ route('paginas.ver', 'nosotros') }}">Nuestro Compromiso</a>
-                <a class="block rounded-lg px-3 py-2 text-white hover:bg-white/10" href="{{ route('paginas.ver', 'equipo') }}">Equipo</a>
-                <a class="block rounded-lg px-3 py-2 text-white hover:bg-white/10" href="{{ route('paginas.ver', 'nosotros') }}#vision">Visión + Misión</a>
+                <a class="block rounded-lg px-3 py-2 text-white hover:bg-white/10" href="{{ route('nosotros') }}#compromiso">Nuestro Compromiso</a>
+                <a class="block rounded-lg px-3 py-2 text-white hover:bg-white/10" href="{{ route('nosotros') }}#equipo">Equipo</a>
+                <a class="block rounded-lg px-3 py-2 text-white hover:bg-white/10" href="{{ route('nosotros') }}#vision">Visión + Misión</a>
             </div>
         </div>
     @endif

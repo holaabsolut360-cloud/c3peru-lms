@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AparienciaController;
 use App\Http\Controllers\Admin\CertificadoController as AdminCertificadoController;
+use App\Http\Controllers\Admin\ComunidadAdminController;
 use App\Http\Controllers\Admin\CursoController as AdminCursoController;
 use App\Http\Controllers\Admin\PagoController as AdminPagoController;
 use App\Http\Controllers\Admin\PanelController as AdminPanelController;
@@ -20,12 +21,15 @@ use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\CursoPublicoController;
 use App\Http\Controllers\Docente\PanelController as DocentePanelController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\NosotrosController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\ReclamacionController;
 use App\Http\Controllers\SeoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', InicioController::class)->name('inicio');
+Route::get('/nosotros', [NosotrosController::class, 'index'])->name('nosotros');
+Route::get('/equipo', [NosotrosController::class, 'equipo'])->name('equipo');
 Route::get('/cursos', [CursoPublicoController::class, 'index'])->name('cursos.index');
 Route::get('/cursos/{curso}', [CursoPublicoController::class, 'ver'])->name('cursos.ver');
 Route::get('/paginas/{pagina}', [PaginaController::class, 'ver'])->name('paginas.ver');
@@ -81,6 +85,12 @@ Route::middleware(['auth', 'rol:admin'])->prefix('admin')->name('admin.')->group
     Route::get('/cursos/{curso}/editar', [AdminCursoController::class, 'editar'])->name('cursos.editar');
     Route::put('/cursos/{curso}', [AdminCursoController::class, 'actualizar'])->name('cursos.actualizar');
     Route::delete('/cursos/{curso}', [AdminCursoController::class, 'eliminar'])->name('cursos.eliminar');
+    Route::get('/comunidad', [ComunidadAdminController::class, 'index'])->name('comunidad');
+    Route::post('/comunidad/cifras', [ComunidadAdminController::class, 'guardarCifra'])->name('comunidad.cifras');
+    Route::put('/comunidad/cifras/{cifra}', [ComunidadAdminController::class, 'actualizarCifra'])->name('comunidad.cifras.actualizar');
+    Route::post('/comunidad/compromisos', [ComunidadAdminController::class, 'guardarCompromiso'])->name('comunidad.compromisos');
+    Route::put('/comunidad/compromisos/{compromiso}', [ComunidadAdminController::class, 'actualizarCompromiso'])->name('comunidad.compromisos.actualizar');
+    Route::put('/comunidad/instructores/{instructor}', [ComunidadAdminController::class, 'actualizarInstructor'])->name('comunidad.instructores.actualizar');
     Route::get('/referencias', [ReferenciaController::class, 'index'])->name('referencias');
     Route::post('/referencias', [ReferenciaController::class, 'guardar'])->name('referencias.guardar');
     Route::put('/referencias/{referencia}', [ReferenciaController::class, 'actualizar'])->name('referencias.actualizar');
