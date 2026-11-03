@@ -32,7 +32,18 @@ class CursoPublicoController extends Controller
     {
         abort_unless($curso->publicado, 404);
         $curso->load('categoria', 'docente');
+        $relacionados = Curso::query()
+            ->with('categoria')
+            ->where('publicado', true)
+            ->where('categoria_id', $curso->categoria_id)
+            ->whereKeyNot($curso->id)
+            ->orderBy('orden')
+            ->limit(3)
+            ->get();
 
-        return view('cursos.ver', ['curso' => $curso]);
+        return view('cursos.ver', [
+            'curso' => $curso,
+            'relacionados' => $relacionados,
+        ]);
     }
 }

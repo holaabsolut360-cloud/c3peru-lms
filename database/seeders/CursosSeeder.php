@@ -61,6 +61,26 @@ class CursosSeeder extends Seeder
                     'moneda' => 'PEN',
                     'incluye_igv' => (bool) ($fila['incluye_igv'] ?? true),
                     'descripcion' => 'Programa de '.$fila['categoria'].'. '.($this->limpio($fila['certificacion'] ?? null) ?: 'Certificación por confirmar.').' El temario detallado está pendiente de publicación.',
+                    'beneficio' => 'Al finalizar podrás aplicar el programa de '.$fila['titulo'].'. El detalle de competencias está POR CONFIRMAR.',
+                    'aprendizajes' => [
+                        'Reconocer el alcance publicado de '.$fila['titulo'].'. POR CONFIRMAR.',
+                        'Prepararte para la evaluación según la modalidad de la ficha. POR CONFIRMAR.',
+                    ],
+                    'temario' => $fila['temario'] ?: [
+                        ['titulo' => 'Módulo 1. Introducción', 'descripcion' => 'POR CONFIRMAR. El contenido de este módulo aún no fue entregado.'],
+                        ['titulo' => 'Módulo 2. Práctica y evaluación', 'descripcion' => 'POR CONFIRMAR. Las horas de práctica siguen la duración publicada en la ficha.'],
+                    ],
+                    'dirigido_a' => 'Personal técnico de '.($fila['categoria']).'. El perfil exacto está POR CONFIRMAR.',
+                    'requisitos' => 'POR CONFIRMAR.',
+                    'horario' => null,
+                    'fecha_inicio' => $this->limpio($fila['fechas'] ?? null),
+                    'preguntas' => [
+                        ['pregunta' => '¿El temario detallado ya está publicado?', 'respuesta' => 'Todavía no. Está POR CONFIRMAR y se actualizará en esta ficha cuando la empresa lo entregue.'],
+                    ],
+                    'testimonios' => [
+                        ['nombre' => 'Participante POR CONFIRMAR', 'texto' => 'POR CONFIRMAR. Ejemplo de testimonio. No corresponde a un alumno real.'],
+                        ['nombre' => 'Empresa POR CONFIRMAR', 'texto' => 'POR CONFIRMAR. Ejemplo corporativo, pendiente de autorización para publicarse.'],
+                    ],
                     'portada' => match ($categoria->slug) {
                         'izaje' => '/marca/izajes.jpg',
                         'end-ndt' => '/marca/end.jpg',

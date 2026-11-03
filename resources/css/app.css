@@ -34,6 +34,25 @@
 
     h1, h2, h3, h4, h5 {
         font-family: var(--c3-fuente-titulos), "Montserrat", sans-serif;
+        text-align: left;
+    }
+
+    h1 {
+        font-weight: 800;
+    }
+
+    p, li, h1, h2, h3, h4, h5 {
+        text-align: left;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+        outline: 2px solid var(--c3-acento);
+        outline-offset: 3px;
     }
 
     button, input, select, textarea, nav, .fuente-ui {
@@ -80,6 +99,52 @@
 .prosa-c3 p, .prosa-c3 li {
     margin-top: 0.75rem;
     line-height: 1.7;
+}
+
+.ficha-bloque {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.fondo-suave {
+    background: #f4f7fb;
+}
+
+.tarjeta-suave {
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 8px 24px rgb(11 17 38 / 0.08);
+}
+
+.velo-portada {
+    background: rgb(11 17 38 / 0.4);
+}
+
+.solo-laptop {
+    display: none;
+}
+
+.barra-inscripcion {
+    position: fixed;
+    right: 5.5rem;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+}
+
+@media (min-width: 1024px) {
+    .ficha-bloque {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .solo-laptop {
+        display: block;
+    }
+
+    .barra-inscripcion {
+        display: none;
+    }
 }
 
 .menu-desplegable {

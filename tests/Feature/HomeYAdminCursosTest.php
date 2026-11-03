@@ -46,6 +46,45 @@ class HomeYAdminCursosTest extends TestCase
         $ficha = $this->get(route('cursos.ver', $curso));
         $ficha->assertOk()->assertSee('Consultar por WhatsApp');
         $this->assertSame(1, substr_count($ficha->getContent(), 'boton-whatsapp'));
+        $ficha->assertSee('Inscribirme')->assertSee('Lo que aprenderás')->assertSee('Verificable por código o DNI')->assertSee('POR CONFIRMAR');
+    }
+
+    public function test_la_ficha_oculta_bloques_vacios_y_el_admin_guarda_el_detalle(): void
+    {
+        $categoria = Categoria::factory()->create();
+        $curso = Curso::factory()->create([
+            'categoria_id' => $categoria->id,
+            'precio' => 500,
+            'beneficio' => null,
+            'aprendizajes' => null,
+            'temario' => null,
+            'testimonios' => null,
+            'preguntas' => null,
+        ]);
+        Curso::factory()->create(['categoria_id' => $categoria->id, 'titulo' => 'Curso hermano']);
+
+        $html = $this->get(route('cursos.ver', $curso))->assertOk()->assertSee('Inscribirme con comprobante')->getContent();
+        $this->assertStringNotContainsString('Lo que aprenderás', $html);
+        $this->assertStringNotContainsString('id="testimonios"', $html);
+        $this->assertStringContainsString('Curso hermano', $html);
+        $this->assertStringContainsString(route('compra.crear', $curso, false), $html);
+
+        $admin = User::factory()->admin()->create();
+        $this->actingAs($admin)->put(route('admin.cursos.actualizar', $curso), [
+            'categoria_id' => $categoria->id,
+            'titulo' => $curso->titulo,
+            'nivel' => $curso->nivel,
+            'duracion' => '10 hrs',
+            'modalidad' => 'Virtual',
+            'precio' => 500,
+            'publicado' => '1',
+            'aprendizajes' => "Identificar el alcance\nAplicar el procedimiento",
+            'temario' => 'Introducción || POR CONFIRMAR',
+        ])->assertRedirect(route('admin.cursos'));
+
+        $curso->refresh();
+        $this->assertSame(['Identificar el alcance', 'Aplicar el procedimiento'], $curso->aprendizajesLista());
+        $this->assertSame('Introducción', $curso->temarioLista()[0]['titulo']);
     }
 
     public function test_el_admin_gestiona_cursos_y_el_404_es_de_marca(): void

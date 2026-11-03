@@ -93,8 +93,23 @@ class CursoController extends Controller
             'certificacion' => ['nullable', 'string', 'max:180'],
             'precio' => ['nullable', 'numeric', 'min:0'],
             'descripcion' => ['nullable', 'string', 'max:5000'],
+            'beneficio' => ['nullable', 'string', 'max:500'],
+            'aprendizajes' => ['nullable', 'string', 'max:8000'],
+            'temario' => ['nullable', 'string', 'max:12000'],
+            'dirigido_a' => ['nullable', 'string', 'max:2000'],
+            'requisitos' => ['nullable', 'string', 'max:2000'],
+            'horario' => ['nullable', 'string', 'max:160'],
+            'fecha_inicio' => ['nullable', 'string', 'max:160'],
+            'instructor_nombre' => ['nullable', 'string', 'max:160'],
+            'instructor_cargo' => ['nullable', 'string', 'max:160'],
+            'instructor_enlace' => ['nullable', 'url', 'max:255'],
+            'preguntas' => ['nullable', 'string', 'max:8000'],
+            'testimonios' => ['nullable', 'string', 'max:8000'],
+            'incluye' => ['nullable', 'string', 'max:4000'],
             'orden' => ['nullable', 'integer', 'min:0'],
             'portada' => ['nullable', 'file', 'max:4096', 'mimes:jpg,jpeg,png,webp', 'mimetypes:image/jpeg,image/png,image/webp'],
+            'instructor_foto' => ['nullable', 'file', 'max:4096', 'mimes:jpg,jpeg,png,webp', 'mimetypes:image/jpeg,image/png,image/webp'],
+            'temario_pdf' => ['nullable', 'file', 'max:8192', 'mimes:pdf', 'mimetypes:application/pdf'],
         ], [
             'titulo.required' => 'Escribe el nombre del curso.',
             'categoria_id.required' => 'Elige una categoría.',
@@ -103,20 +118,66 @@ class CursoController extends Controller
 
         $datos['precio'] = $request->filled('precio') ? $datos['precio'] : null;
         $datos['orden'] = $datos['orden'] ?? ($curso->orden ?? (Curso::query()->max('orden') + 1));
-        unset($datos['portada']);
+        $datos['aprendizajes'] = $this->lineas($datos['aprendizajes'] ?? null);
+        $datos['incluye'] = $this->lineas($datos['incluye'] ?? null);
+        $datos['temario'] = $this->pares($datos['temario'] ?? null, ['titulo', 'descripcion']);
+        $datos['preguntas'] = $this->pares($datos['preguntas'] ?? null, ['pregunta', 'respuesta']);
+        $datos['testimonios'] = $this->pares($datos['testimonios'] ?? null, ['nombre', 'texto']);
+        unset($datos['portada'], $datos['instructor_foto'], $datos['temario_pdf']);
+        if ($foto = $this->archivo($request, 'instructor_foto', 'instructores')) {
+            $datos['instructor_foto'] = $foto;
+        }
+        if ($pdf = $this->archivo($request, 'temario_pdf', 'temarios')) {
+            $datos['temario_archivo'] = $pdf;
+        }
 
         return $datos;
     }
 
     private function portada(Request $request): ?string
     {
-        if (! $request->hasFile('portada')) {
+        return $this->archivo($request, 'portada', 'cursos');
+    }
+
+    private function archivo(Request $request, string $campo, string $carpeta): ?string
+    {
+        if (! $request->hasFile($campo)) {
             return null;
         }
 
-        $ruta = $request->file('portada')->store('cursos', 'public');
+        return '/storage/'.$request->file($campo)->store($carpeta, 'public');
+    }
 
-        return '/storage/'.$ruta;
+    /**
+     * @return array<int, string>
+     */
+    private function lineas(?string $texto): array
+    {
+        $partes = preg_split('/\r\n|\r|\n/', (string) $texto) ?: [];
+
+        return array_values(array_filter(array_map('trim', $partes)));
+    }
+
+    /**
+     * @param  array<int, string>  $claves
+     * @return array<int, array<string, string>>
+     */
+    private function pares(?string $texto, array $claves): array
+    {
+        $salida = [];
+        foreach ($this->lineas($texto) as $linea) {
+            $partes = array_map('trim', explode('||', $linea, count($claves)));
+            if (($partes[0] ?? '') === '') {
+                continue;
+            }
+            $fila = [];
+            foreach ($claves as $indice => $clave) {
+                $fila[$clave] = $partes[$indice] ?? '';
+            }
+            $salida[] = $fila;
+        }
+
+        return $salida;
     }
 
     private function portadaDeCategoria(int $categoriaId): string
