@@ -18,7 +18,7 @@
             <label class="block text-sm font-semibold" for="password">Contraseña</label>
             <input id="password" name="password" type="password" required class="w-full rounded-xl border px-4 py-3">
             <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="remember" value="1"> Recordarme en este equipo</label>
-            <button class="fuente-ui w-full rounded-full bg-marca py-3 font-semibold text-white" type="submit">Ingresar</button>
+            <button class="accion-principal fuente-ui w-full rounded-lg bg-marca py-3 font-semibold text-white max-lg:w-[calc(100%-4.5rem)]" type="submit">Ingresar</button>
         </form>
         <p class="mt-4 text-sm"><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></p>
         <p class="mt-2 text-sm">¿Aún no tienes cuenta? <a href="{{ route('registro') }}">Regístrate</a></p>

@@ -77,6 +77,29 @@ class ConfiguracionApariencia extends Model
         ];
     }
 
+    public function videoIncrustado(): ?string
+    {
+        $url = trim((string) $this->video_url);
+        if ($url === '') {
+            return null;
+        }
+        if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/))([\w-]{6,})~', $url, $coincidencia)) {
+            return 'https://www.youtube.com/embed/'.$coincidencia[1];
+        }
+
+        return null;
+    }
+
+    public function videoArchivoPublico(): ?string
+    {
+        $archivo = trim((string) $this->video_archivo);
+        if ($archivo === '') {
+            return null;
+        }
+
+        return str_starts_with($archivo, '/') ? $archivo : '/storage/'.$archivo;
+    }
+
     public function enlaceWhatsapp(?string $texto = null): string
     {
         $numero = preg_replace('/\D+/', '', (string) $this->whatsapp) ?: '';

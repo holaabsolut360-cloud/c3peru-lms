@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\AparienciaController;
 use App\Http\Controllers\Admin\CertificadoController as AdminCertificadoController;
+use App\Http\Controllers\Admin\CursoController as AdminCursoController;
 use App\Http\Controllers\Admin\PagoController as AdminPagoController;
 use App\Http\Controllers\Admin\PanelController as AdminPanelController;
 use App\Http\Controllers\Admin\ReclamacionAdminController;
+use App\Http\Controllers\Admin\ReferenciaController;
 use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\Auth\ContrasenaController;
@@ -73,6 +75,16 @@ Route::middleware(['auth', 'rol:docente'])->prefix('docente')->name('docente.')-
 
 Route::middleware(['auth', 'rol:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', AdminPanelController::class)->name('inicio');
+    Route::get('/cursos', [AdminCursoController::class, 'index'])->name('cursos');
+    Route::get('/cursos/nuevo', [AdminCursoController::class, 'crear'])->name('cursos.nuevo');
+    Route::post('/cursos', [AdminCursoController::class, 'guardar'])->name('cursos.guardar');
+    Route::get('/cursos/{curso}/editar', [AdminCursoController::class, 'editar'])->name('cursos.editar');
+    Route::put('/cursos/{curso}', [AdminCursoController::class, 'actualizar'])->name('cursos.actualizar');
+    Route::delete('/cursos/{curso}', [AdminCursoController::class, 'eliminar'])->name('cursos.eliminar');
+    Route::get('/referencias', [ReferenciaController::class, 'index'])->name('referencias');
+    Route::post('/referencias', [ReferenciaController::class, 'guardar'])->name('referencias.guardar');
+    Route::put('/referencias/{referencia}', [ReferenciaController::class, 'actualizar'])->name('referencias.actualizar');
+    Route::delete('/referencias/{referencia}', [ReferenciaController::class, 'eliminar'])->name('referencias.eliminar');
     Route::get('/pagos', [AdminPagoController::class, 'index'])->name('pagos');
     Route::post('/pagos/{pago}/aprobar', [AdminPagoController::class, 'aprobar'])->name('pagos.aprobar');
     Route::post('/pagos/{pago}/rechazar', [AdminPagoController::class, 'rechazar'])->name('pagos.rechazar');

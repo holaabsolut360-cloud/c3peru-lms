@@ -47,12 +47,22 @@ class AparienciaController extends Controller
             'prefijo_certificado' => ['required', 'regex:/^[A-Za-z0-9]{2,12}$/'],
             'gerente_general' => ['required', 'string', 'max:160'],
             'sitio' => ['required', 'url', 'max:255'],
+            'video_url' => ['nullable', 'url', 'max:255'],
+            'video_archivo' => ['nullable', 'file', 'max:51200', 'mimetypes:video/mp4,video/webm'],
         ];
         foreach ($colores as $color) {
             $reglas[$color] = ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'];
         }
 
-        $datos = $request->validate($reglas);
+        $datos = $request->validate($reglas, [
+            'video_url.url' => 'La URL del video debe ser un enlace completo de YouTube o de un archivo.',
+            'video_archivo.mimetypes' => 'El video debe ser MP4 o WEBM.',
+        ]);
+        $datos['video_url'] = $request->input('video_url') ?: null;
+        unset($datos['video_archivo']);
+        if ($request->hasFile('video_archivo')) {
+            $datos['video_archivo'] = '/storage/'.$request->file('video_archivo')->store('videos', 'public');
+        }
         $marca = ConfiguracionApariencia::query()->first() ?? new ConfiguracionApariencia;
         $marca->fill($datos)->save();
 

@@ -17,34 +17,24 @@
 </head>
 <body class="min-h-screen bg-white">
     <div class="flex min-h-screen">
-        <aside class="fuente-ui hidden w-64 shrink-0 bg-fondo p-5 text-sm text-white md:block">
+        <aside class="fuente-ui hidden w-64 shrink-0 bg-fondo p-5 text-white md:block">
             <a href="{{ route('inicio') }}" class="block text-base font-semibold text-white">{{ $marca->nombre_comercial }}</a>
-            <nav class="mt-6 space-y-2">
-                @if (auth()->user()->esAdmin())
-                    <a class="block text-white" href="{{ route('admin.inicio') }}">Resumen</a>
-                    <a class="block text-white" href="{{ route('admin.pagos') }}">Pagos</a>
-                    <a class="block text-white" href="{{ route('admin.certificados') }}">Certificados</a>
-                    <a class="block text-white" href="{{ route('admin.usuarios') }}">Usuarios</a>
-                    <a class="block text-white" href="{{ route('admin.reclamaciones') }}">Reclamaciones</a>
-                    <a class="block text-white" href="{{ route('admin.apariencia') }}">Marca</a>
-                @elseif (auth()->user()->esDocente())
-                    <a class="block text-white" href="{{ route('docente.inicio') }}">Mis cursos</a>
-                @else
-                    <a class="block text-white" href="{{ route('aula.inicio') }}">Mis cursos</a>
-                    <a class="block text-white" href="{{ route('aula.pagos') }}">Mis pagos</a>
-                @endif
-                <a class="block text-white" href="{{ route('password.cambiar') }}">Contraseña</a>
-                <a class="block text-white" href="{{ route('cursos.index') }}">Catálogo</a>
-            </nav>
+            <div class="mt-6">@include('partials.menu-panel')</div>
             <form method="post" action="{{ route('logout') }}" class="mt-8">
                 @csrf
                 <button class="text-acento" type="submit">Salir</button>
             </form>
         </aside>
         <div class="flex-1">
-            <header class="flex items-center justify-between border-b px-4 py-3 md:hidden">
-                <a href="{{ auth()->user()->rutaInicio() }}">{{ $marca->nombre_comercial }}</a>
-                <form method="post" action="{{ route('logout') }}">@csrf<button type="submit">Salir</button></form>
+            <header class="border-b bg-fondo text-white md:hidden">
+                <div class="flex items-center justify-between px-4 py-3">
+                    <a class="text-white" href="{{ auth()->user()->rutaInicio() }}">{{ $marca->nombre_comercial }}</a>
+                    <form method="post" action="{{ route('logout') }}">@csrf<button class="text-acento" type="submit">Salir</button></form>
+                </div>
+                <details class="border-t border-white/10 px-4 py-2">
+                    <summary class="cursor-pointer list-none py-1 font-semibold [&::-webkit-details-marker]:hidden">Menú del panel</summary>
+                    <div class="pb-3 pt-2">@include('partials.menu-panel')</div>
+                </details>
             </header>
             <main class="px-4 py-8 md:px-8">
                 @if (session('estado'))

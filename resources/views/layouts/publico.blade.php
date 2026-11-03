@@ -24,41 +24,31 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-white text-fondo">
-    <div class="bg-fondo text-white text-sm">
-        <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2">
-            <p>{{ $marca->telefono }} · {{ $marca->correo }} · La Molina, Perú</p>
-            <p class="fuente-ui">{{ $marca->lema }}</p>
+    <div class="bg-fondo text-xs text-white sm:text-sm">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5 sm:py-2">
+            <p class="truncate">{{ $marca->telefono }} · {{ $marca->correo }}</p>
+            <p class="hidden shrink-0 sm:block">La Molina, Perú</p>
+            <p class="fuente-ui hidden shrink-0 lg:block">{{ $marca->lema }}</p>
         </div>
     </div>
-    <header class="sticky top-0 z-30 border-b border-white/10 bg-fondo-alt text-white">
-        <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-            <a href="{{ route('inicio') }}" class="flex items-center gap-3 text-white">
-                <img src="{{ $marca->logo }}" alt="{{ $marca->nombre_comercial }}" class="h-12 w-auto bg-white/95 px-2 py-1">
+    <header class="z-30 border-b border-white/10 bg-fondo-alt text-white">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+            <a href="{{ route('inicio') }}" class="flex items-center text-white">
+                <img src="{{ $marca->logo }}" alt="{{ $marca->nombre_comercial }}" class="h-10 w-auto bg-white/95 px-2 py-1 sm:h-12">
             </a>
-            <nav class="fuente-ui hidden items-center gap-4 text-sm lg:flex">
-                <a class="text-white" href="{{ route('inicio') }}">Inicio</a>
-                <a class="text-white" href="{{ route('paginas.ver', 'nosotros') }}">Nosotros</a>
-                <a class="text-white" href="{{ route('cursos.index') }}">Cursos</a>
-                <a class="text-white" href="{{ route('paginas.ver', 'clientes') }}">Clientes</a>
-                <a class="text-white" href="{{ route('blog') }}">Blog</a>
-                <a class="text-white" href="{{ route('contacto') }}">Contacto</a>
-                <a class="text-white" href="{{ route('certificados.formulario') }}">Verificar</a>
-                @auth
-                    <a class="rounded-full bg-acento px-3 py-1 text-fondo" href="{{ auth()->user()->rutaInicio() }}">Mi espacio</a>
-                @else
-                    <a class="text-white" href="{{ route('login') }}">Ingresar</a>
-                    <a class="rounded-full bg-acento px-3 py-1 text-fondo" href="{{ route('registro') }}">Regístrate</a>
-                @endauth
+            <nav id="menu-escritorio" class="fuente-ui hidden items-center gap-4 text-sm lg:flex" aria-label="Principal">
+                @include('partials.menu-publico', ['movil' => false])
             </nav>
+            <details id="menu-movil" class="fuente-ui relative lg:hidden">
+                <summary class="flex cursor-pointer list-none items-center gap-2 rounded-lg border border-white/20 px-3 py-2 text-sm text-white [&::-webkit-details-marker]:hidden">
+                    <i class="ti ti-menu-2 text-xl"></i>
+                    Menú
+                </summary>
+                <div class="absolute right-0 z-40 mt-2 w-72 rounded-2xl bg-fondo p-4 shadow-xl">
+                    @include('partials.menu-publico', ['movil' => true])
+                </div>
+            </details>
         </div>
-        <nav class="fuente-ui flex gap-3 overflow-x-auto px-4 pb-3 text-sm lg:hidden">
-            <a class="text-white" href="{{ route('cursos.index') }}">Cursos</a>
-            <a class="text-white" href="{{ route('certificados.formulario') }}">Verificar</a>
-            <a class="text-white" href="{{ route('contacto') }}">Contacto</a>
-            @guest
-                <a class="text-white" href="{{ route('login') }}">Ingresar</a>
-            @endguest
-        </nav>
     </header>
 
     <main>
@@ -77,7 +67,7 @@
         @yield('contenido')
     </main>
 
-    <footer class="mt-16 bg-fondo text-white">
+    <footer class="mt-16 bg-fondo pb-24 text-white">
         <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-4">
             <div>
                 <img src="{{ $marca->logo }}" alt="" class="mb-3 h-12 bg-white/95 px-2 py-1">
@@ -115,11 +105,11 @@
             </div>
         </div>
         <div class="border-t border-white/10">
-            <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 text-sm text-white/80">
+            <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-5 pr-24 text-sm text-white/80">
                 <p>{{ $marca->razon_social }} · RUC {{ $marca->ruc }}</p>
                 <p>{{ $marca->direccion }}</p>
                 <p>{{ $marca->copyright }}</p>
-                <div class="flex gap-3 text-lg">
+                <div class="flex gap-2 text-2xl">
                     <a class="text-white" href="{{ $marca->linkedin }}" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
                     <a class="text-white" href="{{ $marca->youtube }}" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
                     <a class="text-white" href="{{ $marca->instagram }}" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
@@ -130,11 +120,11 @@
         </div>
     </footer>
 
-    <a class="boton-whatsapp fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full px-4 py-3 text-sm font-semibold shadow-lg"
+    <a class="boton-whatsapp"
        href="{{ $marca->enlaceWhatsapp('Hola, quiero información sobre los cursos de C3 Perú.') }}"
-       target="_blank" rel="noopener">
-        <i class="ti ti-brand-whatsapp text-xl"></i>
-        WhatsApp
+       target="_blank" rel="noopener" aria-label="WhatsApp">
+        <i class="ti ti-brand-whatsapp text-2xl"></i>
+        <span class="hidden lg:inline">WhatsApp</span>
     </a>
 </body>
 </html>

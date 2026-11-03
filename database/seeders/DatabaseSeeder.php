@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             MarcaSeeder::class,
             CursosSeeder::class,
             PaginasSeeder::class,
+            ReferenciasSeeder::class,
             AdminSeeder::class,
         ]);
     }

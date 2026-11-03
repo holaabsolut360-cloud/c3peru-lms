@@ -47,9 +47,34 @@ class Curso extends Model
         return $this->hasMany(Leccion::class);
     }
 
+    public function pagos(): HasMany
+    {
+        return $this->hasMany(Pago::class);
+    }
+
+    public function matriculas(): HasMany
+    {
+        return $this->hasMany(Matricula::class);
+    }
+
     public function sePuedeComprar(): bool
     {
         return $this->precio !== null && (float) $this->precio > 0;
+    }
+
+    public function imagenPortada(): string
+    {
+        if (is_string($this->portada) && $this->portada !== '') {
+            return $this->portada;
+        }
+
+        return match ($this->categoria?->slug) {
+            'izaje' => '/marca/izajes.jpg',
+            'end-ndt' => '/marca/end.jpg',
+            'oil-gas' => '/marca/oilgas.jpg',
+            'mantenimiento' => '/marca/mantenimiento.jpg',
+            default => '/marca/hero.jpg',
+        };
     }
 
     public function precioFormateado(): string

@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <style>
-        body { font-family: DejaVu Sans, sans-serif; color: {{ $marca->color_fondo }}; margin: 0; }
-        .marco { border: 8px solid {{ $marca->color_primario }}; padding: 28px; min-height: 480px; }
+        @page { margin: 8mm; }
+        html, body { font-family: DejaVu Sans, sans-serif; color: {{ $marca->color_fondo }}; margin: 0; padding: 0; }
+        .marco { border: 10px solid {{ $marca->color_primario }}; padding: 8mm; height: 194mm; box-sizing: border-box; }
         .barra { background: {{ $marca->color_secundario }}; color: white; padding: 10px 16px; }
         h1 { color: {{ $marca->color_primario }}; font-size: 28px; margin: 12px 0; }
         .acento { color: {{ $marca->color_acento }}; }

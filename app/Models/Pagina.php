@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use League\CommonMark\CommonMarkConverter;
 
 class Pagina extends Model
@@ -41,6 +42,12 @@ class Pagina extends Model
             'allow_unsafe_links' => false,
         ]);
 
-        return $convertidor->convert($texto)->getContent();
+        $html = $convertidor->convert($texto)->getContent();
+
+        return preg_replace_callback('/<h([1-3])>(.*?)<\/h\1>/', function (array $coincidencia): string {
+            $id = Str::slug(strip_tags($coincidencia[2]));
+
+            return '<h'.$coincidencia[1].' id="'.$id.'">'.$coincidencia[2].'</h'.$coincidencia[1].'>';
+        }, $html) ?? $html;
     }
 }

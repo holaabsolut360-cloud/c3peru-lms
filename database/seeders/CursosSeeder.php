@@ -61,6 +61,13 @@ class CursosSeeder extends Seeder
                     'moneda' => 'PEN',
                     'incluye_igv' => (bool) ($fila['incluye_igv'] ?? true),
                     'descripcion' => 'Programa de '.$fila['categoria'].'. '.($this->limpio($fila['certificacion'] ?? null) ?: 'Certificación por confirmar.').' El temario detallado está pendiente de publicación.',
+                    'portada' => match ($categoria->slug) {
+                        'izaje' => '/marca/izajes.jpg',
+                        'end-ndt' => '/marca/end.jpg',
+                        'oil-gas' => '/marca/oilgas.jpg',
+                        'mantenimiento' => '/marca/mantenimiento.jpg',
+                        default => '/marca/hero.jpg',
+                    },
                     'publicado' => true,
                     'destacado' => in_array($clave, $destacados, true),
                     'orden' => $indice + 1,

@@ -4,6 +4,7 @@
 
 @section('contenido')
     <article class="mx-auto max-w-3xl px-4 py-12">
+        <img src="{{ $curso->imagenPortada() }}" alt="" class="mb-6 h-56 w-full rounded-2xl object-cover">
         <p class="fuente-ui text-sm font-semibold uppercase text-marca-2">{{ $curso->categoria->nombre }}</p>
         <h1 class="mt-2 text-4xl text-marca">{{ $curso->titulo }}</h1>
         @if ($curso->nivel)<p class="mt-2 text-lg">{{ $curso->nivel }}</p>@endif
@@ -22,8 +23,8 @@
                 <a class="fuente-ui inline-block rounded-full bg-marca px-5 py-3 font-semibold text-white" href="{{ route('compra.crear', $curso) }}">Inscribirme con comprobante</a>
                 <p class="mt-2 text-sm">El acceso al aula se habilita cuando administración aprueba el comprobante.</p>
             @else
-                <a class="boton-whatsapp fuente-ui inline-flex items-center gap-2 rounded-full px-5 py-3 font-semibold" href="{{ $marca->enlaceWhatsapp('Hola, quiero consultar el curso '.$curso->titulo) }}" target="_blank" rel="noopener">
-                    <i class="ti ti-brand-whatsapp"></i> Consultar por WhatsApp
+                <a class="fuente-ui inline-flex items-center gap-2 rounded-lg bg-marca px-5 py-3 font-semibold text-white" href="{{ $marca->enlaceWhatsapp('Hola, quiero consultar el curso '.$curso->titulo) }}" target="_blank" rel="noopener">
+                    Consultar por WhatsApp
                 </a>
                 <p class="mt-2 text-sm">Este curso no tiene precio publicado y no se puede comprar en línea.</p>
             @endif
