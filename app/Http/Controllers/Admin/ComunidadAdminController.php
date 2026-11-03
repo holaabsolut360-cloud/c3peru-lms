@@ -83,9 +83,14 @@ class ComunidadAdminController extends Controller
             'bio' => ['required', 'string', 'max:4000'],
             'linkedin' => ['nullable', 'url', 'max:255'],
             'iniciales' => ['required', 'string', 'max:4'],
+            'credenciales' => ['nullable', 'string', 'max:1000'],
             'orden' => ['nullable', 'integer', 'min:0'],
             'foto' => ['nullable', 'file', 'max:4096', 'mimes:jpg,jpeg,png,webp'],
         ]);
+        $datos['credenciales'] = array_values(array_filter(array_map(
+            'trim',
+            preg_split('/\r\n|\r|\n/', (string) ($datos['credenciales'] ?? '')) ?: []
+        )));
         unset($datos['foto']);
         $datos['publicado'] = $request->boolean('publicado');
         if ($request->hasFile('foto')) {

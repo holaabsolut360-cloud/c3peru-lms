@@ -12,6 +12,9 @@ class Instructor extends Model
 
     protected function casts(): array
     {
-        return ['publicado' => 'boolean'];
+        return [
+            'publicado' => 'boolean',
+            'credenciales' => 'array',
+        ];
     }
 }

@@ -47,6 +47,7 @@
             <input name="iniciales" value="{{ $persona->iniciales }}" class="w-24 rounded-xl border px-3 py-2">
             <input name="linkedin" value="{{ $persona->linkedin }}" class="rounded-xl border px-3 py-2">
             <textarea name="bio" rows="4" class="rounded-xl border px-3 py-2">{{ $persona->bio }}</textarea>
+            <textarea name="credenciales" rows="3" placeholder="Una credencial real por línea" class="rounded-xl border px-3 py-2">{{ implode("\n", $persona->credenciales ?? []) }}</textarea>
             <input name="orden" value="{{ $persona->orden }}" class="w-20 rounded-xl border px-3 py-2">
             <input name="foto" type="file" accept="image/jpeg,image/png,image/webp">
             <label class="text-sm"><input type="checkbox" name="publicado" value="1" @checked($persona->publicado)> Publicar</label>

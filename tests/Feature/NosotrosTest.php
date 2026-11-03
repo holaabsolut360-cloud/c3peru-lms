@@ -28,6 +28,10 @@ class NosotrosTest extends TestCase
         $respuesta->assertSee('Texto propuesto, por confirmar con el cliente');
         $respuesta->assertSee('POR CONFIRMAR');
         $respuesta->assertSee('Forma parte de nuestra comunidad');
+        $respuesta->assertSee('/marca/hero.webp', false);
+        $respuesta->assertSee('Foto POR CONFIRMAR');
+        $respuesta->assertSee('ASNT NDT Level III');
+        $respuesta->assertSee('Nuestras 4 especialidades');
         $respuesta->assertSee('Entrenamos en tu unidad, con tus equipos.');
         $respuesta->assertDontSee('1,200');
         $respuesta->assertDontSee('500 empresas');

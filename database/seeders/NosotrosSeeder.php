@@ -18,6 +18,7 @@ class NosotrosSeeder extends Seeder
                 'iniciales' => 'AC',
                 'linkedin' => 'https://www.linkedin.com/in/anamariacastillovasquez',
                 'bio' => 'Ing. Industrial, MBA, con más de 15 años de experiencia, especializada en gerencia de proyectos, gestión de calidad, estrategias comerciales y marketing digital. Experiencia liderando la capacitación de equipos e implementación de estándares de calidad e ISO.',
+                'credenciales' => [],
                 'orden' => 1,
             ],
             [
@@ -26,6 +27,7 @@ class NosotrosSeeder extends Seeder
                 'iniciales' => 'LC',
                 'linkedin' => 'https://www.linkedin.com/in/luis-chirinos-m-a42a58104',
                 'bio' => 'Ing. Mecánico Electricista, MBA, con 20 años de experiencia en proyectos electromecánicos, montaje de equipos estáticos y desarrollo de planes de inspección. Inspector Certificado ASNT NDT Level III #207051 VT-PT-MT-UT, Inspector API 570 #69101, API 577 #105556, especialista en equipos estáticos.',
+                'credenciales' => ['ASNT NDT Level III', 'API 570', 'API 577'],
                 'orden' => 2,
             ],
             [
@@ -34,6 +36,7 @@ class NosotrosSeeder extends Seeder
                 'iniciales' => 'YT',
                 'linkedin' => 'https://www.linkedin.com/in/ysabel-torres-guerrero-08867b16',
                 'bio' => 'Ing. Mecánica Electricista, MBA, 20 años de experiencia, ASNT NDT Level III 303528 MT-IRT; certificación CIA como Inspectors & Trainer de Operadores de Equipos de Izaje y Equipos; Auditora Certificada ISO 17020 y 17024, especialista Equipos Dinámicos e Izajes.',
+                'credenciales' => ['ASNT NDT Level III', 'ISO 17020', 'ISO 17024'],
                 'orden' => 3,
             ],
         ];

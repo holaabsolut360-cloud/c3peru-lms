@@ -664,7 +664,7 @@
     "src": "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.zodiac.woff2"
   },
   "resources/css/app.css": {
-    "file": "assets/app-C9fHNk6L.css",
+    "file": "assets/app-BvL5_znl.css",
     "name": "app",
     "names": [
       "app.css"
@@ -841,7 +841,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-BvRk9kiK.js",
+    "file": "assets/app-DWM6nS3b.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true

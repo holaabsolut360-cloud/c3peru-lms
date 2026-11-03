@@ -30,6 +30,11 @@
         font-family: var(--c3-fuente-texto), "Roboto", sans-serif;
         color: var(--c3-fondo);
         background: white;
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
     }
 
     h1, h2, h3, h4, h5 {
@@ -120,6 +125,10 @@
     background: rgb(11 17 38 / 0.4);
 }
 
+.velo-45 {
+    background: rgb(11 17 38 / 0.45);
+}
+
 .solo-laptop {
     display: none;
 }
@@ -144,6 +153,21 @@
 
     .barra-inscripcion {
         display: none;
+    }
+}
+
+.zoom-foto {
+    transform: scale(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .zoom-foto {
+        transition: transform 0.5s ease;
+    }
+
+    .group:hover .zoom-foto,
+    .group:focus-visible .zoom-foto {
+        transform: scale(1.06);
     }
 }
 
