@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+@import "@tabler/icons-webfont/dist/tabler-icons.min.css";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: var(--c3-fuente-ui), "Poppins", ui-sans-serif, system-ui, sans-serif;
+    --color-marca: var(--c3-primario);
+    --color-marca-2: var(--c3-secundario);
+    --color-acento: var(--c3-acento);
+    --color-fondo: var(--c3-fondo);
+    --color-fondo-alt: var(--c3-fondo-alt);
+}
+
+@layer base {
+    body {
+        font-family: var(--c3-fuente-texto), "Roboto", sans-serif;
+        color: var(--c3-fondo);
+        background: white;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: var(--c3-fuente-titulos), "Montserrat", sans-serif;
+    }
+
+    button, input, select, textarea, nav, .fuente-ui {
+        font-family: var(--c3-fuente-ui), "Poppins", sans-serif;
+    }
+
+    a {
+        color: var(--c3-secundario);
+    }
+}
+
+.boton-whatsapp {
+    background: var(--c3-whatsapp);
+    color: white;
+}
+
+.prosa-c3 h2 {
+    margin-top: 1.5rem;
+    font-size: 1.35rem;
+    color: var(--c3-primario);
+}
+
+.prosa-c3 p, .prosa-c3 li {
+    margin-top: 0.75rem;
+    line-height: 1.7;
+}
+
+.prosa-c3 ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+}
