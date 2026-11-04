@@ -97,7 +97,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/aula/materiales/{material}/descargar', [AulaController::class, 'descargarMaterial'])->name('aula.materiales.descargar');
     Route::post('/aula/cursos/{curso}/lecciones/{leccion}/completar', [AulaController::class, 'completarLeccion'])->name('aula.lecciones.completar');
     Route::get('/aula/examenes/{examen}', [AulaController::class, 'examen'])->name('aula.examenes.realizar');
-    Route::get('/aula/examenes/{examen}', [AulaController::class, 'examen'])->name('examenes.realizar');
     Route::get('/aula/videos/{video}/stream', VideoStreamController::class)->name('aula.videos.stream');
     Route::get('/aula/pagos', [AulaController::class, 'pagos'])->name('aula.pagos');
     Route::get('/cursos/{curso}/inscripcion', [CompraController::class, 'crear'])->name('compra.crear');

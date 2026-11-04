@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Curso;
-use App\Models\MensajeContacto;
 use FilesystemIterator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use RecursiveDirectoryIterator;
@@ -140,6 +139,8 @@ class SitioPublicoTest extends TestCase
 
     private function seOmite(string $ruta): bool
     {
+        $ruta = str_replace('\\', '/', $ruta);
+
         foreach (['/vendor/', '/node_modules/', '/public/build/', '/storage/', '/.git/'] as $fragmento) {
             if (str_contains($ruta, $fragmento)) {
                 return true;
