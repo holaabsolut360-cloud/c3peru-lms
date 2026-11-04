@@ -5,8 +5,11 @@ namespace App\Services;
 use App\Models\Matricula;
 use App\Models\Pago;
 use App\Models\User;
+use App\Notifications\NotificacionCentro;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use RuntimeException;
+use Throwable;
 
 class PagoAprobador
 {
@@ -33,6 +36,22 @@ class PagoAprobador
                 ['pago_id' => $pago->id, 'estado' => 'activa'],
             );
         });
+
+        try {
+            $pago->loadMissing(['curso', 'usuario']);
+            $pago->usuario->notify(new NotificacionCentro(
+                'Pago aprobado',
+                'Tu matrícula en «'.$pago->curso->titulo.'» ya está activa.',
+                route('aula.curso', $pago->curso, false),
+                'pago',
+            ));
+        } catch (Throwable $exception) {
+            report($exception);
+            Log::warning('No se pudo guardar la notificación de aprobación de pago.', [
+                'pago_id' => $pago->id,
+                'user_id' => $pago->user_id,
+            ]);
+        }
     }
 
     public function rechazar(Pago $pago, User $admin, string $motivo): void

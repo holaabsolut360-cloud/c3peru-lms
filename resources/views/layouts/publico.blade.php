@@ -14,6 +14,7 @@
     <meta property="og:image" content="{{ url($marca->logo) }}">
     <link rel="icon" href="{{ $marca->favicon }}" type="image/png">
     <link rel="apple-touch-icon" href="{{ $marca->apple_touch }}">
+    @include('partials.dark-mode-init')
     <style>
         :root {
 @foreach ($marca->variablesCss() as $nombre => $valor)
@@ -23,7 +24,7 @@
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-white text-fondo">
+<body class="min-h-screen bg-white text-fondo transition-colors duration-300 dark:bg-slate-950 dark:text-slate-200">
     <div class="bg-fondo text-xs text-white sm:text-sm">
         <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5 sm:py-2">
             <p class="truncate">{{ $marca->telefono }} · {{ $marca->correo }}</p>
@@ -39,6 +40,7 @@
             <nav id="menu-escritorio" class="fuente-ui hidden items-center gap-4 text-sm lg:flex" aria-label="Principal">
                 @include('partials.menu-publico', ['movil' => false])
             </nav>
+            <x-dark-mode-toggle />
             <details id="menu-movil" class="fuente-ui relative lg:hidden">
                 <summary class="flex cursor-pointer list-none items-center gap-2 rounded-lg border border-white/20 px-3 py-2 text-sm text-white [&::-webkit-details-marker]:hidden">
                     <i class="ti ti-menu-2 text-xl"></i>
@@ -120,11 +122,7 @@
         </div>
     </footer>
 
-    <a class="boton-whatsapp"
-       href="{{ $marca->enlaceWhatsapp('Hola, quiero información sobre los cursos de C3 Perú.') }}"
-       target="_blank" rel="noopener" aria-label="WhatsApp">
-        <i class="ti ti-brand-whatsapp text-2xl"></i>
-        <span class="hidden lg:inline">WhatsApp</span>
-    </a>
+    @php($contextoWhatsapp = trim($__env->yieldContent('contexto-whatsapp', 'general')))
+    <x-whatsapp-flotante :contexto="$contextoWhatsapp" />
 </body>
 </html>

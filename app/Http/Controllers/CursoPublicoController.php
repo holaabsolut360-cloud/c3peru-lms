@@ -19,7 +19,8 @@ class CursoPublicoController extends Controller
                 $consulta->whereHas('categoria', fn ($q) => $q->where('slug', $categoria));
             })
             ->orderBy('orden')
-            ->get();
+            ->paginate(9)
+            ->withQueryString();
 
         return view('cursos.index', [
             'cursos' => $cursos,

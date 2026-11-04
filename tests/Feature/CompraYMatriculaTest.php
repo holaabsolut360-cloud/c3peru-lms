@@ -35,6 +35,20 @@ class CompraYMatriculaTest extends TestCase
         $this->assertDatabaseCount('pagos', 0);
     }
 
+    public function test_la_inscripcion_muestra_el_curso_y_solicita_el_comprobante(): void
+    {
+        $alumno = User::factory()->create();
+        $curso = Curso::factory()->create(['titulo' => 'Inspección Visual']);
+
+        $this->actingAs($alumno)
+            ->get(route('compra.crear', $curso))
+            ->assertOk()
+            ->assertSee('Completa tu inscripción')
+            ->assertSee('Inspección Visual')
+            ->assertSee('Selecciona tu comprobante')
+            ->assertSee('name="referencia"', false);
+    }
+
     public function test_el_comprobante_queda_pendiente_y_solo_el_admin_matricula(): void
     {
         Storage::fake('comprobantes');

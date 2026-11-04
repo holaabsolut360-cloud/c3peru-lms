@@ -7,15 +7,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 class Curso extends Model
 {
     /** @use HasFactory<CursoFactory> */
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $table = 'cursos';
 
     protected $guarded = ['id'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['titulo', 'slug', 'descripcion', 'precio', 'publicado', 'destacado', 'categoria_id', 'docente_id'])
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges()
+            ->setDescriptionForEvent(fn (string $eventName): string => match ($eventName) {
+                'created' => 'Curso creado',
+                'updated' => 'Curso actualizado',
+                'deleted' => 'Curso eliminado',
+                default => 'Actividad de curso',
+            });
+    }
 
     protected function casts(): array
     {
@@ -52,6 +68,16 @@ class Curso extends Model
         return $this->hasMany(Leccion::class);
     }
 
+    public function clasesEnVivo(): HasMany
+    {
+        return $this->hasMany(ClaseEnVivo::class);
+    }
+
+    public function examenes(): HasMany
+    {
+        return $this->hasMany(Examen::class);
+    }
+
     public function pagos(): HasMany
     {
         return $this->hasMany(Pago::class);
@@ -60,6 +86,16 @@ class Curso extends Model
     public function matriculas(): HasMany
     {
         return $this->hasMany(Matricula::class);
+    }
+
+    public function tareas(): HasMany
+    {
+        return $this->hasMany(Tarea::class);
+    }
+
+    public function anuncios(): HasMany
+    {
+        return $this->hasMany(AnuncioCurso::class, 'curso_id');
     }
 
     public function sePuedeComprar(): bool

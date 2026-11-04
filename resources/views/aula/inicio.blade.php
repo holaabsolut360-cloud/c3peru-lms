@@ -3,6 +3,9 @@
 
 @section('contenido')
     <h1 class="text-3xl text-marca">Mis cursos</h1>
+    <x-continuar-aprendiendo :ultima-actividad="$ultimaActividad" />
+    <x-insignias-widget :insignias="$insignias" />
+    @include('partials.proximas-clases-widget', ['clases' => $proximasClases])
     <div class="mt-6 grid gap-4 md:grid-cols-2">
         @forelse ($matriculas as $matricula)
             <article class="rounded-2xl border p-5">

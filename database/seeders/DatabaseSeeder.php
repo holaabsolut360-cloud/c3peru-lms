@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MarcaSeeder::class,
             CursosSeeder::class,
+            InsigniasSeeder::class,
             PaginasSeeder::class,
             ReferenciasSeeder::class,
             NosotrosSeeder::class,

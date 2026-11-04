@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Curso;
+use App\Models\MensajeContacto;
 use FilesystemIterator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use RecursiveDirectoryIterator;
@@ -58,6 +59,35 @@ class SitioPublicoTest extends TestCase
             ->assertSee('20605518860')
             ->assertSee('ana.castillo@c3peru.com')
             ->assertDontSee('contact@mysite.com');
+    }
+
+    public function test_contacto_guarda_empresa_y_datos_de_cotizacion(): void
+    {
+        $this->get(route('contacto'))
+            ->assertOk()
+            ->assertSee('Contacto y cotización corporativa')
+            ->assertSee('name="empresa"', false);
+
+        $this->from(route('contacto'))
+            ->post(route('contacto.guardar'), [
+                'nombre' => 'María Pérez',
+                'empresa' => 'Operaciones Andinas S.A.C.',
+                'correo' => 'maria@empresa.test',
+                'telefono' => '+51 999 123 456',
+                'especialidad' => 'Izaje y Manejo de Cargas',
+                'modalidad' => 'INHOUSE',
+                'mensaje' => 'Cotización para un equipo de operación.',
+            ])
+            ->assertRedirect(route('contacto'))
+            ->assertSessionHas('estado');
+
+        $this->assertDatabaseHas('mensajes_contacto', [
+            'nombre' => 'María Pérez',
+            'empresa' => 'Operaciones Andinas S.A.C.',
+            'correo' => 'maria@empresa.test',
+            'especialidad' => 'Izaje y Manejo de Cargas',
+            'modalidad' => 'INHOUSE',
+        ]);
     }
 
     public function test_no_hay_rutas_de_membresia_ni_marcas_ajenas_ni_hex_dispersos(): void

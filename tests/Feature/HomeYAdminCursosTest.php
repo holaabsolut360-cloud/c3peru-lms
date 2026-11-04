@@ -49,6 +49,66 @@ class HomeYAdminCursosTest extends TestCase
         $ficha->assertSee('Inscribirme')->assertSee('Lo que aprenderás')->assertSee('Verificable por código o DNI')->assertSee('POR CONFIRMAR');
     }
 
+    public function test_el_catalogo_filtra_cursos_por_slug_de_especialidad(): void
+    {
+        $categoriaActiva = Categoria::factory()->create([
+            'nombre' => 'Ensayos No Destructivos',
+            'slug' => 'end-ndt',
+        ]);
+        $otraCategoria = Categoria::factory()->create([
+            'nombre' => 'Izaje',
+            'slug' => 'izaje',
+        ]);
+        Curso::factory()->for($categoriaActiva)->create(['titulo' => 'Inspección Visual']);
+        Curso::factory()->for($otraCategoria)->create(['titulo' => 'Inspección de Aparejos']);
+
+        $this->get(route('cursos.index', ['categoria' => $categoriaActiva->slug]))
+            ->assertOk()
+            ->assertSee('Ensayos No Destructivos')
+            ->assertSee('Inspección Visual')
+            ->assertDontSee('Inspección de Aparejos')
+            ->assertSee('aria-current="page"', false);
+    }
+
+    public function test_el_catalogo_pagina_cursos_y_conserva_el_filtro(): void
+    {
+        $categoria = Categoria::factory()->create([
+            'nombre' => 'Ensayos No Destructivos',
+            'slug' => 'end-ndt',
+        ]);
+
+        for ($numeroCurso = 1; $numeroCurso <= 10; $numeroCurso++) {
+            Curso::factory()->for($categoria)->create([
+                'titulo' => $numeroCurso === 10 ? 'Curso pagina dos' : 'Curso pagina uno '.$numeroCurso,
+                'slug' => 'curso-paginado-'.$numeroCurso,
+                'orden' => $numeroCurso,
+            ]);
+        }
+
+        $this->get(route('cursos.index', ['categoria' => $categoria->slug, 'page' => 2]))
+            ->assertOk()
+            ->assertSee('Curso pagina dos')
+            ->assertDontSee('Curso pagina uno 1')
+            ->assertSee('categoria=end-ndt&amp;page=1', false);
+    }
+
+    public function test_la_ficha_muestra_migas_de_pan_y_el_docente_asignado(): void
+    {
+        $categoria = Categoria::factory()->create();
+        $docente = User::factory()->docente()->create(['name' => 'Docente de Prueba']);
+        $curso = Curso::factory()->for($categoria)->create([
+            'docente_id' => $docente->id,
+            'instructor_nombre' => null,
+            'instructor_cargo' => null,
+        ]);
+
+        $this->get(route('cursos.ver', $curso))
+            ->assertOk()
+            ->assertSee('aria-label="Miga de pan"', false)
+            ->assertSee('Docente de Prueba')
+            ->assertSee('Docente C3 Perú');
+    }
+
     public function test_la_ficha_oculta_bloques_vacios_y_el_admin_guarda_el_detalle(): void
     {
         $categoria = Categoria::factory()->create();

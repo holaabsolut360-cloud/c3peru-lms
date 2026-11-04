@@ -16,6 +16,9 @@
                     <p class="text-sm">{{ $curso->publicado ? 'Publicado' : 'Oculto' }} · {{ $curso->modalidad }} · {{ $curso->duracion }}</p>
                 </div>
                 <a href="{{ route('admin.cursos.editar', $curso) }}">Editar</a>
+                <a class="font-semibold text-marca" href="{{ route('admin.cursos.videos', $curso) }}">Videos privados</a>
+                <a class="font-semibold text-marca" href="{{ route('admin.cursos.examenes', $curso) }}">Exámenes / notas</a>
+                <a class="font-semibold text-marca" href="{{ route('admin.cursos.matriculas.masiva', $curso) }}">Matrícula masiva</a>
                 <form method="post" action="{{ route('admin.cursos.eliminar', $curso) }}">
                     @csrf
                     @method('DELETE')

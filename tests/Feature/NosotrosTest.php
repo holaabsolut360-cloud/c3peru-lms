@@ -17,6 +17,7 @@ class NosotrosTest extends TestCase
 
         $respuesta = $this->get(route('nosotros'));
         $respuesta->assertOk();
+        $respuesta->assertSee('Sobre C3 Perú');
         $respuesta->assertSee('Creamos experiencias únicas', false);
         $respuesta->assertSee('C3 Peru SAC es tu aliado estratégico', false);
         $respuesta->assertSee('Liderando la Excelencia Industrial en Latinoamérica', false);

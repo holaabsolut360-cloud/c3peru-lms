@@ -1,4 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap');
+@import "filepond/dist/filepond.min.css";
+@import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 @import "@fontsource/montserrat/500.css";
 @import "@fontsource/montserrat/600.css";
 @import "@fontsource/montserrat/700.css";
@@ -31,6 +35,14 @@
         color: var(--c3-fondo);
         background: white;
         overflow-x: hidden;
+    }
+
+    html {
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
     }
 
     img {
@@ -183,4 +195,116 @@
 .prosa-c3 ul {
     padding-left: 1.25rem;
     list-style: disc;
+}
+
+.focus-mode-active {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 60 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 1rem !important;
+    background: white !important;
+    box-shadow: 0 0 0 100vmax rgb(15 23 42 / 0.45);
+}
+
+html.dark body {
+    color: #e2e8f0;
+    background-color: #0f172a;
+}
+
+html.dark body.bg-white {
+    background-color: #0f172a !important;
+}
+
+html.dark .bg-white {
+    background-color: #1e293b !important;
+}
+
+html.dark .bg-slate-50,
+html.dark .bg-slate-100 {
+    background-color: #0f172a !important;
+}
+
+html.dark [class~="bg-red-50"] {
+    background-color: #451a1a !important;
+}
+
+html.dark [class~="bg-amber-50"] {
+    background-color: #422006 !important;
+}
+
+html.dark [class~="bg-blue-50"],
+html.dark [class~="bg-sky-50"] {
+    background-color: #172554 !important;
+}
+
+html.dark [class~="bg-emerald-50"],
+html.dark [class~="bg-teal-50"] {
+    background-color: #052e2b !important;
+}
+
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-300 {
+    border-color: #334155 !important;
+}
+
+html.dark .text-fondo,
+html.dark [class~="text-fondo/80"],
+html.dark [class~="text-fondo/70"],
+html.dark [class~="text-fondo/65"],
+html.dark [class~="text-fondo/60"],
+html.dark [class~="text-fondo/55"] {
+    color: #e2e8f0 !important;
+}
+
+html.dark .text-marca,
+html.dark .text-marca-2,
+html.dark [class~="text-slate-500"],
+html.dark [class~="text-slate-600"] {
+    color: #5eead4 !important;
+}
+
+html.dark [class~="text-slate-400"] {
+    color: #94a3b8 !important;
+}
+
+html.dark [class~="text-slate-700"] {
+    color: #e2e8f0 !important;
+}
+
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+    color: #e2e8f0;
+    background-color: #0f172a;
+    border-color: #475569;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+    color: #94a3b8;
+}
+
+html.dark .fondo-suave {
+    background-color: #0f172a;
+}
+
+html.dark .tarjeta-suave {
+    background-color: #1e293b;
+}
+
+html.dark .focus-mode-active {
+    background-color: #0f172a !important;
+}
+
+@media (min-width: 640px) {
+    .focus-mode-active {
+        padding: 2rem !important;
+    }
 }

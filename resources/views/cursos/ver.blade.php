@@ -1,14 +1,26 @@
 @extends('layouts.publico')
 @section('titulo', $curso->titulo.' · '.$marca->nombre_comercial)
+@section('contexto-whatsapp', 'curso')
 @section('descripcion', $curso->titulo.' de '.$curso->categoria->nombre.'. '.$curso->precioFormateado().'. '.$marca->nombre_comercial)
 
 @php
     $palabras = preg_split('/\s+/', mb_strtoupper($curso->categoria->nombre)) ?: [];
     $acento = array_pop($palabras);
     $resto = implode(' ', $palabras);
+    $nombreInstructor = $curso->instructor_nombre ?: $curso->docente?->name;
 @endphp
 
 @section('contenido')
+    <nav class="border-b border-slate-200 bg-white" aria-label="Miga de pan">
+        <ol class="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-4 text-sm sm:px-6 lg:px-8">
+            <li><a class="text-marca hover:text-marca-2" href="{{ route('inicio') }}">Inicio</a></li>
+            <li aria-hidden="true"><i class="ti ti-chevron-right text-xs text-fondo/45"></i></li>
+            <li><a class="text-marca hover:text-marca-2" href="{{ route('cursos.index') }}">Cursos</a></li>
+            <li aria-hidden="true"><i class="ti ti-chevron-right text-xs text-fondo/45"></i></li>
+            <li class="font-semibold text-fondo" aria-current="page">{{ $curso->titulo }}</li>
+        </ol>
+    </nav>
+
     <article class="bg-white pb-28 text-left text-fondo lg:pb-0">
         <header class="ficha-bloque mx-auto max-w-6xl px-4">
             <div class="relative min-h-[28rem] overflow-hidden rounded-3xl bg-fondo">
@@ -114,13 +126,13 @@
                         <h2 class="text-3xl font-extrabold text-marca">Instructor</h2>
                         <article class="tarjeta-suave mt-4 flex items-center gap-4 p-5">
                             @if ($curso->instructor_foto)
-                                <img src="{{ $curso->instructor_foto }}" alt="{{ $curso->instructor_nombre }}" class="h-16 w-16 rounded-full object-cover">
+                                <img src="{{ $curso->instructor_foto }}" alt="{{ $nombreInstructor ?: 'Instructor del curso' }}" class="h-16 w-16 rounded-full object-cover">
                             @else
                                 <span class="flex h-16 w-16 items-center justify-center rounded-full bg-fondo text-sm font-semibold text-white" aria-hidden="true">C3</span>
                             @endif
                             <div>
-                                <p class="font-semibold text-marca">{{ $curso->instructor_nombre ?: 'POR CONFIRMAR' }}</p>
-                                <p class="text-sm">{{ $curso->instructor_cargo ?: 'Cargo POR CONFIRMAR' }}</p>
+                                <p class="font-semibold text-marca">{{ $nombreInstructor ?: 'POR CONFIRMAR' }}</p>
+                                <p class="text-sm">{{ $curso->instructor_cargo ?: ($curso->docente ? 'Docente C3 Perú' : 'Cargo POR CONFIRMAR') }}</p>
                                 @if ($curso->instructor_enlace)
                                     <a class="text-sm font-semibold text-marca-2" href="{{ $curso->instructor_enlace }}">Ver perfil</a>
                                 @else

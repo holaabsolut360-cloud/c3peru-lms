@@ -5,12 +5,14 @@
         <a class="block text-white" href="{{ route('admin.pagos') }}">Pagos</a>
         <a class="block text-white" href="{{ route('admin.certificados') }}">Certificados</a>
         <a class="block text-white" href="{{ route('admin.usuarios') }}">Usuarios</a>
+        <a class="block text-white" href="{{ route('admin.actividad') }}">Auditoría</a>
         <a class="block text-white" href="{{ route('admin.reclamaciones') }}">Reclamaciones</a>
         <a class="block text-white" href="{{ route('admin.referencias') }}">Clientes y aliados</a>
         <a class="block text-white" href="{{ route('admin.comunidad') }}">Comunidad</a>
         <a class="block text-white" href="{{ route('admin.apariencia') }}">Marca</a>
     @elseif (auth()->user()->esDocente())
         <a class="block text-white" href="{{ route('docente.inicio') }}">Mis cursos</a>
+        <a class="block text-white" href="{{ route('docente.inicio') }}#seguimiento-alumnos">Semáforo de alumnos</a>
     @else
         <a class="block text-white" href="{{ route('aula.inicio') }}">Mis cursos</a>
         <a class="block text-white" href="{{ route('aula.pagos') }}">Mis pagos</a>

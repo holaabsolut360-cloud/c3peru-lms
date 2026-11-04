@@ -13,8 +13,9 @@
                     <div class="velo-45 absolute inset-0"></div>
                     <div class="relative flex min-h-[26rem] max-w-3xl flex-col justify-end p-6 text-white md:min-h-[32rem] md:p-12">
                         <p class="text-sm font-semibold uppercase tracking-[0.14em] text-acento">{{ $marca->nombre_comercial }}</p>
-                        <h1 class="mt-3 text-4xl font-extrabold leading-tight text-white md:text-6xl">¡Aprende haciendo, aprende con expertos!</h1>
-                        <p class="mt-4 max-w-xl text-white/90">Formación y certificación de personal en izaje, ensayos no destructivos, oil &amp; gas y mantenimiento.</p>
+                        <h1 class="mt-3 text-4xl font-extrabold leading-tight text-white md:text-6xl">Sobre {{ $marca->nombre_comercial }}</h1>
+                        <p class="mt-4 max-w-xl text-lg font-semibold text-acento">¡Aprende haciendo, aprende con expertos!</p>
+                        <p class="mt-3 max-w-xl text-white/90">Capacitación, certificación y calidad para Izaje, Ensayos No Destructivos, Oil &amp; Gas y Mantenimiento.</p>
                         <div class="mt-6 flex flex-wrap gap-3">
                             <a class="fuente-ui rounded-full bg-acento px-7 py-3 font-semibold text-fondo" href="{{ route('cursos.index') }}">Ver cursos</a>
                             <a class="fuente-ui rounded-full border border-white px-7 py-3 font-semibold text-white" href="{{ route('contacto') }}">Contáctanos</a>

@@ -663,8 +663,32 @@
     "file": "assets/tabler-icons.zodiac-L3y56Yt6.woff2",
     "src": "node_modules/@tabler/icons-webfont/dist/fonts/tabler-icons.zodiac.woff2"
   },
+  "node_modules/apexcharts/dist/bar.esm.js": {
+    "file": "assets/bar.esm-CStSlwd4.js",
+    "name": "bar.esm",
+    "src": "node_modules/apexcharts/dist/bar.esm.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "node_modules/apexcharts/dist/core.esm.js"
+    ]
+  },
+  "node_modules/apexcharts/dist/core.esm.js": {
+    "file": "assets/core.esm-lZ7Rdw9G.js",
+    "name": "core.esm",
+    "src": "node_modules/apexcharts/dist/core.esm.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/apexcharts/dist/line.esm.js": {
+    "file": "assets/line.esm-C1WSA3fz.js",
+    "name": "line.esm",
+    "src": "node_modules/apexcharts/dist/line.esm.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "node_modules/apexcharts/dist/core.esm.js"
+    ]
+  },
   "resources/css/app.css": {
-    "file": "assets/app-BvL5_znl.css",
+    "file": "assets/app-CLMKg770.css",
     "name": "app",
     "names": [
       "app.css"
@@ -841,9 +865,14 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-DWM6nS3b.js",
+    "file": "assets/app-D2946aVI.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/apexcharts/dist/core.esm.js",
+      "node_modules/apexcharts/dist/line.esm.js",
+      "node_modules/apexcharts/dist/bar.esm.js"
+    ]
   }
 }
