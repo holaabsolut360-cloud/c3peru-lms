@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap');
+@import "filepond/dist/filepond.min.css";
+@import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+@import "@tabler/icons-webfont/dist/tabler-icons.min.css";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: var(--c3-fuente-ui), "Poppins", ui-sans-serif, system-ui, sans-serif;
+    --color-marca: var(--c3-primario);
+    --color-marca-2: var(--c3-secundario);
+    --color-acento: var(--c3-acento);
+    --color-fondo: var(--c3-fondo);
+    --color-fondo-alt: var(--c3-fondo-alt);
+}
+
+@layer base {
+    body {
+        font-family: var(--c3-fuente-texto), "Roboto", sans-serif;
+        color: var(--c3-fondo);
+        background: white;
+        overflow-x: hidden;
+    }
+
+    html {
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: var(--c3-fuente-titulos), "Montserrat", sans-serif;
+        text-align: left;
+    }
+
+    h1 {
+        font-weight: 800;
+    }
+
+    p, li, h1, h2, h3, h4, h5 {
+        text-align: left;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+        outline: 2px solid var(--c3-acento);
+        outline-offset: 3px;
+    }
+
+    button, input, select, textarea, nav, .fuente-ui {
+        font-family: var(--c3-fuente-ui), "Poppins", sans-serif;
+    }
+
+    a {
+        color: var(--c3-secundario);
+    }
+}
+
+.boton-whatsapp {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 9999px;
+    background: var(--c3-whatsapp);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+@media (min-width: 1024px) {
+    .boton-whatsapp {
+        width: auto;
+        height: auto;
+        padding: 0.75rem 1rem;
+    }
+}
+
+.prosa-c3 h2 {
+    margin-top: 1.5rem;
+    font-size: 1.35rem;
+    color: var(--c3-primario);
+}
+
+.prosa-c3 p, .prosa-c3 li {
+    margin-top: 0.75rem;
+    line-height: 1.7;
+}
+
+.ficha-bloque {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.fondo-suave {
+    background: #f4f7fb;
+}
+
+.tarjeta-suave {
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 8px 24px rgb(11 17 38 / 0.08);
+}
+
+.velo-portada {
+    background: rgb(11 17 38 / 0.4);
+}
+
+.velo-45 {
+    background: rgb(11 17 38 / 0.45);
+}
+
+.solo-laptop {
+    display: none;
+}
+
+.barra-inscripcion {
+    position: fixed;
+    right: 5.5rem;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+}
+
+@media (min-width: 1024px) {
+    .ficha-bloque {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .solo-laptop {
+        display: block;
+    }
+
+    .barra-inscripcion {
+        display: none;
+    }
+}
+
+.zoom-foto {
+    transform: scale(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .zoom-foto {
+        transition: transform 0.5s ease;
+    }
+
+    .group:hover .zoom-foto,
+    .group:focus-visible .zoom-foto {
+        transform: scale(1.06);
+    }
+}
+
+.menu-desplegable {
+    display: none;
+}
+
+.group:hover > .menu-desplegable,
+.group:focus-within > .menu-desplegable {
+    display: block;
+}
+
+.prosa-c3 ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+}
+
+.focus-mode-active {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 60 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 1rem !important;
+    background: white !important;
+    box-shadow: 0 0 0 100vmax rgb(15 23 42 / 0.45);
+}
+
+html.dark body {
+    color: #e2e8f0;
+    background-color: #0f172a;
+}
+
+html.dark body.bg-white {
+    background-color: #0f172a !important;
+}
+
+html.dark .bg-white {
+    background-color: #1e293b !important;
+}
+
+html.dark .bg-slate-50,
+html.dark .bg-slate-100 {
+    background-color: #0f172a !important;
+}
+
+html.dark [class~="bg-red-50"] {
+    background-color: #451a1a !important;
+}
+
+html.dark [class~="bg-amber-50"] {
+    background-color: #422006 !important;
+}
+
+html.dark [class~="bg-blue-50"],
+html.dark [class~="bg-sky-50"] {
+    background-color: #172554 !important;
+}
+
+html.dark [class~="bg-emerald-50"],
+html.dark [class~="bg-teal-50"] {
+    background-color: #052e2b !important;
+}
+
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-300 {
+    border-color: #334155 !important;
+}
+
+html.dark .text-fondo,
+html.dark [class~="text-fondo/80"],
+html.dark [class~="text-fondo/70"],
+html.dark [class~="text-fondo/65"],
+html.dark [class~="text-fondo/60"],
+html.dark [class~="text-fondo/55"] {
+    color: #e2e8f0 !important;
+}
+
+html.dark .text-marca,
+html.dark .text-marca-2,
+html.dark [class~="text-slate-500"],
+html.dark [class~="text-slate-600"] {
+    color: #5eead4 !important;
+}
+
+html.dark [class~="text-slate-400"] {
+    color: #94a3b8 !important;
+}
+
+html.dark [class~="text-slate-700"] {
+    color: #e2e8f0 !important;
+}
+
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+    color: #e2e8f0;
+    background-color: #0f172a;
+    border-color: #475569;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+    color: #94a3b8;
+}
+
+html.dark .fondo-suave {
+    background-color: #0f172a;
+}
+
+html.dark .tarjeta-suave {
+    background-color: #1e293b;
+}
+
+html.dark .focus-mode-active {
+    background-color: #0f172a !important;
+}
+
+@media (min-width: 640px) {
+    .focus-mode-active {
+        padding: 2rem !important;
+    }
+}
